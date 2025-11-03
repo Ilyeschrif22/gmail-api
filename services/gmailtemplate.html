@@ -1,34 +1,10 @@
-const nodemailer = require("nodemailer");
-
-const transporter = nodemailer.createTransport({
-  service: "gmail",
-  auth: {
-    user: process.env.GMAIL_USER,
-    pass: process.env.GMAIL_APP_PASSWORD,
-  },
-});
-
-async function sendEmail({ name, email, subject, message }) {
-  if (!name || !email || !subject || !message) {
-    throw new Error("All fields are required");
-  }
-
-  const mailOptions = {
-    from: process.env.GMAIL_USER,
-    to: process.env.RECEIVER_EMAIL,
-    subject: `Portfolio Contact: ${subject}`,
-    html: `
-  <!--
-  * This email was built using Tabular.
-  * For more information, visit https://tabular.email
-  -->
-  <!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
-  <html xmlns="http://www.w3.org/1999/xhtml" lang="en">
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" lang="en">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0" />
     <style>
-      body { font-family: Roboto, sans-serif; background-color: #292929; margin: 0; padding: 0; }
+      body { font-family: Roboto, sans-serif;  margin: 0; padding: 0; }
       .container { max-width: 600px; margin: 0 auto; background-color: #fff; border-radius: 14px; overflow: hidden; }
       .header { background-color: #333; padding: 40px; text-align: center; }
       .header img { width: 60px; height: 60px; }
@@ -41,7 +17,9 @@ async function sendEmail({ name, email, subject, message }) {
   <body>
     <div class="container">
       <div class="header">
-        <img src="https://49c203b5-d699-45c2-a4ff-aad3051f563d.b-cdn.net/e/6d708e2f-3a4a-43ff-86a1-5b5fb8658abe/eda4f377-4a03-4a6c-a662-024116b051e0.png" alt="Logo" />
+        <img
+          src="https://49c203b5-d699-45c2-a4ff-aad3051f563d.b-cdn.net/e/6d708e2f-3a4a-43ff-86a1-5b5fb8658abe/eda4f377-4a03-4a6c-a662-024116b051e0.png"
+          alt="Logo" />
       </div>
       <div class="content">
         <h2>New Contact Form Submission</h2>
@@ -54,12 +32,4 @@ async function sendEmail({ name, email, subject, message }) {
       </div>
     </div>
   </body>
-  </html>
-  `,
-    replyTo: email,
-  };
-
-  return transporter.sendMail(mailOptions);
-}
-
-module.exports = { sendEmail };
+</html>
